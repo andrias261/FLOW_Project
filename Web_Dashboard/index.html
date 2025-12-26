@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLOW Dashboard</title>
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <div class="wrapper">
+        
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-bars"></i> <span class="logo-text">FLOW</span></h2>
+            </div>
+            
+            <ul class="list-unstyled components">
+                <li class="active">
+                    <a href="#">
+                        <i class="fas fa-home"></i> 
+                        <span class="link-text">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-question-circle"></i> 
+                        <span class="link-text">Bantuan</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-table"></i> 
+                        <span class="link-text">Data Log</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-cog"></i> 
+                        <span class="link-text">Pengaturan</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            
+            <header>
+                <h1><i class="fas fa-layer-group"></i> FLOW Dashboard</h1>
+            </header>
+
+            <div class="dashboard-grid">
+                
+                <div class="card" id="card-sampah">
+                    <div class="card-header-flex">
+                        <div class="card-icon icon-trash">
+                            <i class="fas fa-trash-alt"></i>
+                        </div>
+                        <div class="card-info-header">
+                            <h3>Volume Sampah</h3>
+                            <div class="unit">Status Kapasitas</div>
+                        </div>
+                    </div>
+
+                    <div class="value" id="sampah-val">0</div>
+                    <div class="unit" style="margin-bottom: 5px;">% Terisi</div>
+                    
+                    <div class="progress-bg">
+                        <div id="sampah-bar" class="progress-fill"></div>
+                    </div>
+                </div>
+
+                <div class="card chart-card" id="card-chart-volt">
+                    <h3><i class="fas fa-chart-line"></i> Grafik Tegangan Real-time</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="chartVolt"></canvas>
+                    </div>
+                </div>
+
+                <div class="card" id="card-air">
+                    <div class="card-icon icon-water">
+                        <i class="fas fa-water"></i>
+                    </div>
+                    <div class="card-info">
+                        <h3>Ketinggian Air</h3>
+                        <div class="value" id="air-val">0</div>
+                        <div class="unit">centimeter</div>
+                    </div>
+                </div>
+
+                <div class="card" id="card-volt">
+                    <div class="card-icon icon-volt">
+                        <i class="fas fa-car-battery"></i>
+                    </div>
+                    <div class="card-info">
+                        <h3>Tegangan</h3>
+                        <div class="value" id="volt-val">0</div>
+                        <div class="unit">Volt (V)</div>
+                    </div>
+                </div>
+
+                <div class="card chart-card" id="card-chart-ampere">
+                    <h3><i class="fas fa-chart-area"></i> Grafik Arus Real-time</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="chartAmpere"></canvas>
+                    </div>
+                </div>
+
+                <div class="card" id="card-ampere">
+                    <div class="card-icon icon-amp">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="card-info">
+                        <h3>Arus Beban</h3>
+                        <div class="value" id="ampere-val">0</div>
+                        <div class="unit">Ampere (A)</div>
+                    </div>
+                </div>
+
+                <div class="card" id="card-watt">
+                    <div class="card-icon icon-watt">
+                        <i class="fas fa-plug"></i>
+                    </div>
+                    <div class="card-info">
+                        <h3>Daya Total</h3>
+                        <div class="value" id="watt-val">0</div>
+                        <div class="unit">Watt (W)</div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

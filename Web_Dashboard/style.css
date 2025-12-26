@@ -1,0 +1,427 @@
+/* =========================================
+   1. RESET & GLOBAL STYLES
+   ========================================= */
+   * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    height: 100vh; /* Paksa setinggi layar desktop */
+    overflow: hidden; /* Hilangkan scroll body utama */
+}
+
+/* =========================================
+   2. LAYOUT WRAPPER (Flexbox)
+   ========================================= */
+.wrapper {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+/* =========================================
+   3. SIDEBAR NAVIGATION (Hover Expand)
+   ========================================= */
+.sidebar {
+    width: 60px; /* Lebar default (hanya ikon) */
+    min-width: 60px;
+    background: #2c3e50;
+    color: #fff;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+}
+
+.sidebar:hover {
+    width: 240px; /* Melebar saat hover */
+}
+
+.sidebar-header {
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #1a252f;
+    white-space: nowrap;
+}
+
+.sidebar-header h2 {
+    font-size: 1.2rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+/* Teks Logo: Sembunyi default -> Muncul saat hover */
+.sidebar .logo-text {
+    display: none;
+    margin-left: 10px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.sidebar:hover .logo-text {
+    display: inline-block;
+    opacity: 1;
+}
+
+/* Menu List */
+.sidebar ul {
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.sidebar ul li a {
+    padding: 12px 0;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    color: #adb5bd;
+    text-decoration: none;
+    position: relative;
+    white-space: nowrap;
+    justify-content: center; /* Default: Ikon di tengah */
+}
+
+.sidebar ul li a i {
+    font-size: 1.1rem;
+    min-width: 60px; /* Area ikon tetap */
+    text-align: center;
+}
+
+/* Teks Menu: Sembunyi default */
+.sidebar .link-text {
+    position: absolute;
+    left: 60px;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.2s;
+}
+
+/* Teks Menu: Muncul saat Sidebar hover */
+.sidebar:hover .link-text {
+    position: relative;
+    left: 0;
+    opacity: 1;
+    visibility: visible;
+    margin-left: 10px;
+}
+
+.sidebar:hover ul li a {
+    justify-content: flex-start; /* Rata kiri saat melebar */
+}
+
+/* Hover & Active State */
+.sidebar ul li a:hover, 
+.sidebar ul li.active a {
+    background: #34495e;
+    color: #fff;
+}
+.sidebar ul li.active a {
+    border-left: 4px solid #3498db;
+}
+
+/* =========================================
+   4. MAIN CONTENT AREA
+   ========================================= */
+.main-content {
+    flex-grow: 1;
+    padding: 15px 25px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e0e0e0;
+    flex-shrink: 0;
+}
+
+header h1 {
+    font-size: 1.3rem;
+    color: #2c3e50;
+    font-weight: 700;
+}
+
+/* =========================================
+   5. GRID SYSTEM (Compact 4x4)
+   ========================================= */
+.dashboard-grid {
+    display: grid;
+    /* 4 Kolom sama besar */
+    grid-template-columns: repeat(4, 1fr);
+    /* 4 Baris fix tinggi (105px per baris) agar fit layar */
+    grid-template-rows: repeat(4, 105px);
+    gap: 12px;
+    height: 100%;
+    max-height: 500px; /* Batas tinggi agar tidak melar */
+}
+
+/* =========================================
+   6. CARD STYLE (Default Horizontal)
+   ========================================= */
+.card {
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    
+    /* DEFAULT: Flex Row (Ikon Kiri, Teks Kanan) */
+    display: flex;
+    flex-direction: row; 
+    align-items: center; 
+    justify-content: flex-start;
+    
+    position: relative;
+    overflow: hidden;
+}
+
+/* Bagian Ikon */
+.card-icon { 
+    width: 42px; 
+    height: 42px; 
+    border-radius: 50%; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    font-size: 1.1rem; 
+    margin-right: 15px; 
+    flex-shrink: 0; 
+}
+
+/* Bagian Info Teks */
+.card-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+/* Typography */
+.card-info h3 { 
+    font-size: 0.75rem; 
+    color: #8898aa; 
+    font-weight: 600; 
+    margin-bottom: 2px; 
+    text-transform: uppercase; 
+    letter-spacing: 0.5px;
+}
+
+.value { 
+    font-size: 1.5rem; 
+    font-weight: 700; 
+    color: #1f2937; 
+    line-height: 1.2;
+}
+
+.unit { 
+    font-size: 0.7rem; 
+    color: #9ca3af; 
+    font-weight: 500;
+}
+
+/* Warna Ikon */
+.icon-trash { background: #fee2e2; color: #ef4444; }
+.icon-water { background: #e0f2fe; color: #0ea5e9; }
+.icon-volt  { background: #fef9c3; color: #eab308; }
+.icon-amp   { background: #dcfce7; color: #22c55e; }
+.icon-watt  { background: #f3e8ff; color: #a855f7; }
+
+/* =========================================
+   7. GRID PLACEMENT & SPECIAL CARDS
+   ========================================= */
+
+/* --- A. KARTU SAMPAH (2x2) --- */
+#card-sampah { 
+    grid-column: 1 / 3; 
+    grid-row: 1 / 3; 
+    border-left: 4px solid #ef4444;
+    
+    /* Override: Kembali ke Column untuk layout kompleks */
+    flex-direction: column; 
+    align-items: flex-start;
+    justify-content: center;
+}
+
+#card-sampah .card-header-flex {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+#card-sampah .card-icon {
+    width: 50px; height: 50px; font-size: 1.4rem;
+}
+
+#card-sampah .value { 
+    font-size: 2.8rem; 
+    line-height: 1; 
+    margin-top: 5px; 
+}
+
+/* Progress Bar Sampah */
+.progress-bg { 
+    width: 100%; 
+    background: #f1f1f1; 
+    height: 10px; 
+    border-radius: 10px; 
+    margin-top: 15px; 
+}
+.progress-fill { 
+    width: 0%; 
+    height: 100%; 
+    background: #ef4444; 
+    border-radius: 10px; 
+    transition: width 0.6s; 
+}
+
+/* --- B. KARTU CHART (2x2) --- */
+.chart-card { 
+    /* Chart butuh Column agar judul di atas, kanvas di bawah */
+    flex-direction: column !important; 
+    align-items: flex-start;
+    padding: 10px 15px;
+}
+
+.chart-card h3 { 
+    font-size: 0.8rem; 
+    margin-bottom: 10px; 
+    color: #555; 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+    width: 100%;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
+.chart-wrapper { 
+    flex-grow: 1; 
+    position: relative; 
+    width: 100%; 
+    min-height: 0; 
+}
+
+/* --- C. GRID POSITIONS --- */
+#card-chart-volt    { grid-column: 3 / 5; grid-row: 1 / 3; }
+
+#card-air           { grid-column: 1 / 2; grid-row: 3 / 4; }
+#card-volt          { grid-column: 2 / 3; grid-row: 3 / 4; }
+
+#card-chart-ampere  { grid-column: 3 / 5; grid-row: 3 / 5; }
+
+#card-ampere        { grid-column: 1 / 2; grid-row: 4 / 5; }
+#card-watt          { grid-column: 2 / 3; grid-row: 4 / 5; }
+
+/* =========================================
+   8. RESPONSIVE MOBILE (NAVIGASI HORIZONTAL ICON-ONLY)
+   ========================================= */
+   @media (max-width: 768px) {
+    /* Aktifkan scroll di HP */
+    body { height: auto; overflow-y: auto; } 
+    
+    /* Ubah layout wrapper jadi kolom (Menu di Atas, Konten di Bawah) */
+    .wrapper { 
+        flex-direction: column; 
+        height: auto; 
+    }
+    
+    /* --- SIDEBAR JADI TOP BAR --- */
+    .sidebar { 
+        width: 100%; 
+        min-width: 100%;
+        height: 60px; /* Tinggi tetap untuk bar navigasi */
+        flex-direction: row; /* Arah Horizontal */
+        padding: 0;
+        position: sticky; /* (Opsional) Agar nempel di atas saat scroll */
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Bayangan agar terlihat mengambang */
+    }
+    
+    /* Matikan efek hover desktop (lebar tetap) */
+    .sidebar:hover { width: 100%; }
+    
+    /* Sembunyikan Logo & Header Sidebar */
+    .sidebar-header { display: none; }
+    
+    /* --- LIST MENU --- */
+    .sidebar ul { 
+        flex-direction: row; 
+        width: 100%; 
+        height: 100%;
+        justify-content: space-evenly; /* Bagi rata jarak antar ikon */
+        align-items: center;
+        gap: 0;
+        padding: 0;
+        margin: 0;
+    }
+    
+    /* Area Klik Menu */
+    .sidebar ul li {
+        flex-grow: 1; /* Setiap menu mengambil lebar yang sama */
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .sidebar ul li a { 
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        display: flex;
+        justify-content: center; 
+        align-items: center;
+        font-size: 1.4rem; /* Ikon diperbesar agar mudah disentuh jari */
+        border-left: none; /* Hapus border kiri desktop */
+    }
+
+    /* --- SEMBUNYIKAN TEKS (HANYA IKON) --- */
+    .sidebar .link-text, 
+    .sidebar .logo-text { 
+        display: none !important; /* Paksa hilang */
+    }
+    
+    /* --- MENU AKTIF DI HP --- */
+    /* Ganti border kiri menjadi border bawah */
+    .sidebar ul li.active a {
+        background-color: #34495e;
+        border-left: none; 
+        border-bottom: 4px solid #3498db; /* Garis indikator di bawah */
+    }
+
+    /* --- LAYOUT KONTEN UTAMA --- */
+    .main-content { 
+        height: auto; 
+        padding: 15px; 
+        margin-top: 0;
+    }
+    
+    /* Reset Grid System jadi 1 Kolom ke bawah */
+    .dashboard-grid { 
+        display: flex; 
+        flex-direction: column; 
+        height: auto; 
+        max-height: none; 
+        gap: 15px;
+    }
+    
+    /* Reset Tinggi Kartu */
+    .card { min-height: 90px; }
+    .chart-wrapper { min-height: 200px; }
+    
+    /* Penyesuaian Kartu Sampah di HP */
+    #card-sampah { align-items: center; } 
+    #card-sampah .card-header-flex { justify-content: center; }
+}
